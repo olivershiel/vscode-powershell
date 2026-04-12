@@ -92,6 +92,7 @@ class CodeFormattingSettings extends PartialSettings {
     trimWhitespaceAroundPipe = false;
     ignoreOneLineBlock = true;
     alignPropertyValuePairs = true;
+    alignEnumMemberValues = true;
     useConstantStrings = false;
     useCorrectCasing = false;
 }
@@ -132,6 +133,7 @@ class IntegratedConsoleSettings extends PartialSettings {
     useLegacyReadLine = false;
     forceClearScrollbackBuffer = false;
     suppressStartupBanner = false;
+    suppressTerminalStoppedNotification = false;
     startLocation = StartLocation.Panel;
 }
 
@@ -159,7 +161,7 @@ function getSetting<TSetting>(
 ): TSetting {
     // Base case where we're looking at a primitive type (or our special record).
     if (key !== undefined && !(value instanceof PartialSettings)) {
-        return configuration.get<TSetting>(key, value);
+        return configuration.get(key, value);
     }
 
     // Otherwise we're looking at one of our interfaces and need to extract.

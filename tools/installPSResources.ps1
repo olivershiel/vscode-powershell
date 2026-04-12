@@ -5,6 +5,7 @@ param(
     [string]$PSRepository = "PSGallery"
 )
 
+# Install-PSResource can't use the project-scoped feed because OneBranch doesn't auth it
 if ($PSRepository -eq "CFS" -and -not (Get-PSResourceRepository -Name CFS -ErrorAction SilentlyContinue)) {
     Register-PSResourceRepository -Name CFS -Uri "https://pkgs.dev.azure.com/powershell/PowerShell/_packaging/PowerShellGalleryMirror/nuget/v3/index.json"
 }
@@ -14,7 +15,7 @@ if ($PSRepository -eq "CFS" -and -not (Get-PSResourceRepository -Name CFS -Error
 # upstream feed, it will fail to install any version at all.
 Install-PSResource -Verbose -TrustRepository -RequiredResource  @{
     InvokeBuild = @{
-        version = "5.12.1"
+        version = "5.14.23"
         repository = $PSRepository
       }
     platyPS = @{
